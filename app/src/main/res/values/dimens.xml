@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fpf_add_activity_margin">8dp</dimen>
+    <dimen name="fpf_add_edit_margin_top">0dp</dimen>
+    <dimen name="fpf_add_textview_margin_top">16dp</dimen>
+    <dimen name="fpf_add_button_height">48dp</dimen>
+    <dimen name="fpf_add_button_margin">8dp</dimen>
+    <dimen name="fpf_add_set_button_width">80dp</dimen>
+    <dimen name="fpf_add_set_button_margin_start">8dp</dimen>
+    <dimen name="fpf_card_corner_radius">4dp</dimen>
+    <dimen name="fpf_card_margin">8dp</dimen>
+    <dimen name="fpf_card_name_textsize">24sp</dimen>
+</resources>

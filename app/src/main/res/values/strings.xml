@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Flickr Public Feed</string>
+    <string name="fpf_menu_add">Add</string>
+    <string name="fpf_add">Add</string>
+    <string name="fpf_add_image_url">Image URL</string>
+    <string name="fpf_add_name">Name</string>
+    <string name="fpf_add_date">Date</string>
+    <string name="fpf_add_tags">Tags</string>
+    <string name="fpf_add_save">Save</string>
+    <string name="fpf_add_set_date">Set</string>
+    <string name="tags">Tags:</string>
+    <string name="fpf_no_tags">(none)</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddActivity">
+        <TextView
+            android:text="@string/fpf_add_image_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/fpf_add_label_image_url" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/fpf_add_activity_margin" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="@dimen/fpf_add_activity_margin"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/fpf_add_edit_image_url" android:layout_marginEnd="@dimen/fpf_add_activity_margin"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" android:inputType="textUri"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_label_image_url" android:layout_marginTop="@dimen/fpf_add_edit_margin_top"/>
+    <TextView
+            android:text="@string/fpf_add_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/fpf_add_label_name"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_edit_image_url"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/fpf_add_activity_margin" android:layout_marginTop="@dimen/fpf_add_textview_margin_top"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/fpf_add_edit_name" android:layout_marginEnd="@dimen/fpf_add_activity_margin"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_label_name" android:layout_marginTop="@dimen/fpf_add_edit_margin_top"/>
+
+    <TextView
+            android:text="@string/fpf_add_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/fpf_add_label_date" app:layout_constraintTop_toBottomOf="@+id/fpf_add_edit_name"
+            android:layout_marginTop="@dimen/fpf_add_textview_margin_top" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="@dimen/fpf_add_activity_margin"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/fpf_add_edit_date"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_label_date"
+            android:layout_marginTop="@dimen/fpf_add_edit_margin_top"
+            app:layout_constraintEnd_toStartOf="@+id/fpf_add_button_set_date" android:inputType="none"
+            android:clickable="true" android:editable="false"/>
+    <TextView
+            android:text="@string/fpf_add_tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/fpf_add_label_tags"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_edit_date"
+            android:layout_marginTop="@dimen/fpf_add_textview_margin_top" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/fpf_add_activity_margin"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/fpf_add_edit_tags" android:layout_marginEnd="@dimen/fpf_add_activity_margin"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fpf_add_activity_margin" android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_label_tags" android:layout_marginTop="@dimen/fpf_add_edit_margin_top"/>
+    <Button
+            android:text="@string/fpf_add_save"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/fpf_add_button_height"
+            android:id="@+id/fpf_add_button_save"
+            style="@style/Widget.AppCompat.Button.Colored" android:layout_marginBottom="@dimen/fpf_add_button_margin"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="@dimen/fpf_add_button_margin"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/fpf_add_button_margin"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="@dimen/fpf_add_button_margin"
+            app:layout_constraintTop_toBottomOf="@+id/fpf_add_edit_tags" app:layout_constraintVertical_bias="1.0"/>
+    <Button
+            android:text="@string/fpf_add_set_date"
+            android:layout_width="@dimen/fpf_add_set_button_width"
+            android:layout_height="0dp"
+            android:id="@+id/fpf_add_button_set_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/fpf_add_button_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/fpf_add_edit_date"
+            app:layout_constraintTop_toTopOf="@+id/fpf_add_edit_date"
+            app:layout_constraintStart_toEndOf="@+id/fpf_add_edit_date" android:layout_marginStart="@dimen/fpf_add_set_button_margin_start"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
