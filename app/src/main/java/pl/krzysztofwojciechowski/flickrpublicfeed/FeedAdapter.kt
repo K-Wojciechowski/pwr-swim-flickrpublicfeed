@@ -1,12 +1,14 @@
 package pl.krzysztofwojciechowski.flickrpublicfeed
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -18,6 +20,7 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
     class HistoryViewHolder(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
+        val layout: ConstraintLayout = itemView.findViewById(R.id.fpf_card_constraintlayout)
         val imageView: ImageView = itemView.findViewById(R.id.fpf_card_imageview)
         val nameView: TextView = itemView.findViewById(R.id.fpf_card_name)
         val dateView: TextView = itemView.findViewById(R.id.fpf_card_date)
@@ -40,29 +43,45 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
         // newest at top
         val item = feedEntries[feedEntries.size - 1 - position]
 
-        holder.nameView.text = item.name
         if (item.imageURL.isEmpty()) {
             holder.imageView.setImageResource(R.drawable.ic_no_image)
         } else {
             Picasso.get().load(item.imageURL).error(R.drawable.ic_no_image).into(holder.imageView)
         }
+
+        if (item.name.isEmpty()) {
+            holder.nameView.visibility = View.GONE
+        } else {
+            holder.nameView.visibility = View.VISIBLE
+            holder.nameView.text = item.name
+        }
         holder.dateView.text = item.dateString
         val visibleTags = item.tags.take(MAX_TAG_COUNT)
-        if (visibleTags.isNotEmpty()) {
-            holder.tagsLayout.removeAllViewsInLayout()
+        holder.tagsLayout.removeAllViewsInLayout()
+        if (visibleTags.isEmpty()) {
+            val tv = buildTagTextView(holder.context)
+            tv.text = holder.context.getText(R.string.fpf_no_tags)
+            tv.setTypeface(null, Typeface.ITALIC)
+            holder.tagsLayout.addView(tv)
         }
         for (tag in visibleTags) {
-            val tv = TextView(holder.context)
+            val tv = buildTagTextView(holder.context)
             tv.text = tag
-            tv.layoutParams = LinearLayout.LayoutParams(
+            tv.background = ContextCompat.getDrawable(holder.context, R.drawable.fpf_tag_background)
+            holder.tagsLayout.addView(tv)
+        }
+    }
+
+    private fun buildTagTextView(context: Context): TextView {
+        val tv = TextView(context)
+        val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 0.0f
             )
-            tv.setPadding(0, 0, 2, 0)
-            tv.background = ContextCompat.getDrawable(holder.context, R.drawable.fpf_tag_background)
-            holder.tagsLayout.addView(tv)
-        }
+            params.leftMargin = TAG_LEFT_MARGIN
+            tv.layoutParams = params
+        return tv
     }
 
     fun addItem(entry: FeedEntry) {

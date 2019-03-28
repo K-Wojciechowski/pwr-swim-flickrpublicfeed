@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
         val leftSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.LEFT, viewAdapter)
         val rightSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.RIGHT, viewAdapter)
         ItemTouchHelper(leftSwipeHandler).attachToRecyclerView(recyclerView)
-        ItemTouchHelper(rightSwipeHandler).attachToRecyclerView(recyclerView)
+//        ItemTouchHelper(rightSwipeHandler).attachToRecyclerView(recyclerView)
 
         // Add sample entries, because why not?
         viewAdapter.addItem(FeedEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Random /r/aww picture", "2019-03-28", "one, two, three, four"))
-        viewAdapter.addItem(FeedEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully wraps to the next line", "2019-03-01", ""))
+        viewAdapter.addItem(FeedEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully wraps to the next line", "2019-03-01", "this is very long and should show the horizontal scroll bar. more text, even more? hi?"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 data.getStringExtra(INTENTEXTRA_TAGS)
             )
             viewAdapter.addItem(entry)
+            recyclerView.scrollToPosition(0)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
