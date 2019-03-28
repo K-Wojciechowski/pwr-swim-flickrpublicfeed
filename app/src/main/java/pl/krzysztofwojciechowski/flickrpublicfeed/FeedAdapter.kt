@@ -40,8 +40,12 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
         // newest at top
         val item = feedEntries[feedEntries.size - 1 - position]
 
-        Picasso.get().load(item.imageURL).into(holder.imageView)
         holder.nameView.text = item.name
+        if (item.imageURL.isEmpty()) {
+            holder.imageView.setImageResource(R.drawable.ic_no_image)
+        } else {
+            Picasso.get().load(item.imageURL).error(R.drawable.ic_no_image).into(holder.imageView)
+        }
         holder.dateView.text = item.dateString
         val visibleTags = item.tags.take(MAX_TAG_COUNT)
         if (visibleTags.isNotEmpty()) {
