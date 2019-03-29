@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.fpf_recyclerview).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+            setHasFixedSize(false)
 
             layoutManager = viewManager
             adapter = viewAdapter
