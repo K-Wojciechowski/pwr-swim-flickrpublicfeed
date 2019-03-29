@@ -20,7 +20,6 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
     class HistoryViewHolder(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
-        val layout: ConstraintLayout = itemView.findViewById(R.id.fpf_card_constraintlayout)
         val imageView: ImageView = itemView.findViewById(R.id.fpf_card_imageview)
         val nameView: TextView = itemView.findViewById(R.id.fpf_card_name)
         val dateView: TextView = itemView.findViewById(R.id.fpf_card_date)
