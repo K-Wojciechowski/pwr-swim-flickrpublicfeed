@@ -1,4 +1,6 @@
 package pl.krzysztofwojciechowski.flickrpublicfeed
+import android.graphics.Bitmap
+import com.squareup.picasso.Picasso
 
 import java.util.*
 
@@ -13,7 +15,10 @@ fun dateFromString(date: String): Calendar {
     // class Date is deprecated, Calendar is good enough and built-in
 }
 
-data class FeedEntry(val imageURL: String, val name: String, val date: Calendar, val tags: List<String>) {
+data class FeedEntry(val imageURL: String, val name: String, val date: Calendar, var tags: List<String>) {
+
+    var bitmap: Bitmap? = null
+
     val dateString: String
         get() = formatDate(date)
 
@@ -23,4 +28,20 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
         dateFromString(date),
         tags.split(",").map(String::trim).filter(String::isNotEmpty)
     )
+    constructor(imageURL: String, name: String, date: String, labelerCallback: (FeedEntry)->Unit) : this(
+        imageURL,
+        name,
+        dateFromString(date),
+        listOf("…")
+    ) {
+        if (imageURL.isBlank()) {
+            tags = listOf()
+            return
+        }
+        val picassoImg = Picasso.get().load(imageURL).error(R.drawable.ic_no_image)
+        Thread {
+            bitmap = picassoImg.get()
+            labelerCallback(this)
+        }.start()
+    }
 }

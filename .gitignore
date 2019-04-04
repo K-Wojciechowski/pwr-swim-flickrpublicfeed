@@ -133,3 +133,6 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/androidstudio
+
+# Better not to commit API keys
+app/google-services.json

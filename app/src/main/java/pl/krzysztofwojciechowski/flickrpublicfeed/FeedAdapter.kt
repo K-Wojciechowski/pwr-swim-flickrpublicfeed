@@ -2,13 +2,13 @@ package pl.krzysztofwojciechowski.flickrpublicfeed
 
 import android.content.Context
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -40,12 +40,15 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         // newest at top
-        val item = feedEntries[feedEntries.size - 1 - position]
+        val item = feedEntries[adjustPosition(position)]
 
         if (item.imageURL.isEmpty()) {
             holder.imageView.setImageResource(R.drawable.ic_no_image)
+        } else if (item.bitmap != null) {
+            holder.imageView.setImageBitmap(item.bitmap)
         } else {
-            Picasso.get().load(item.imageURL).error(R.drawable.ic_no_image).into(holder.imageView)
+            val picassoImg = Picasso.get().load(item.imageURL).error(R.drawable.ic_no_image)
+            picassoImg.into(holder.imageView)
         }
 
         if (item.name.isEmpty()) {
@@ -74,12 +77,12 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     private fun buildTagTextView(context: Context): TextView {
         val tv = TextView(context)
         val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                0.0f
-            )
-            params.leftMargin = TAG_LEFT_MARGIN
-            tv.layoutParams = params
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0.0f
+        )
+        params.leftMargin = TAG_LEFT_MARGIN
+        tv.layoutParams = params
         return tv
     }
 
@@ -88,9 +91,28 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
         notifyItemInserted(0)
     }
 
-    fun removeItem(position: Int) {
-        feedEntries.removeAt(position)
-        notifyItemRemoved(position)
+    fun addItems(entries: List<FeedEntry>) {
+        feedEntries.addAll(entries)
+        notifyItemRangeInserted(0, entries.size)
+    }
+
+    private fun adjustPosition(position: Int): Int {
+        return feedEntries.size - position - 1
+    }
+
+    fun updateItem(entry: FeedEntry) {
+        val position = feedEntries.indexOf(entry)
+        if (position == -1) {
+            Log.wtf("FeedAdapter", "Update item received but item not found, updating all")
+            notifyItemRangeChanged(0, feedEntries.size)
+        } else {
+            notifyItemChanged(adjustPosition(position))
+        }
+    }
+
+    fun removeItem(adjPosition: Int) {
+        feedEntries.removeAt(adjustPosition(adjPosition))
+        notifyItemRemoved(adjPosition)
     }
 
     override fun getItemCount() = feedEntries.size
