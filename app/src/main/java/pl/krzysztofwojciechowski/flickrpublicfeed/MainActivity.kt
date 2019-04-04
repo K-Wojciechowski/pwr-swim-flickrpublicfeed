@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val leftSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.LEFT, viewAdapter)
-        val rightSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.RIGHT, viewAdapter)
         ItemTouchHelper(leftSwipeHandler).attachToRecyclerView(recyclerView)
+//        val rightSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.RIGHT, viewAdapter)
 //        ItemTouchHelper(rightSwipeHandler).attachToRecyclerView(recyclerView)
 
         // Add sample entries, because why not?
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 data.getStringExtra(INTENTEXTRA_IMAGE_URL),
                 data.getStringExtra(INTENTEXTRA_NAME),
                 data.getStringExtra(INTENTEXTRA_DATE),
-                data.getStringExtra(INTENTEXTRA_TAGS)
+                listOf<String>()
             )
             viewAdapter.addItem(entry)
             recyclerView.scrollToPosition(0)

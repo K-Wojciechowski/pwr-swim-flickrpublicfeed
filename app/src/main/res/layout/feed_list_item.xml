@@ -59,7 +59,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" android:id="@+id/fpf_card_tags_none"
                         android:layout_weight="1"
-                        android:textStyle="italic" android:layout_marginStart="@dimen/fpf_no_tags_margin_start"/>
+                        android:textStyle="italic"
+                        android:layout_marginStart="@dimen/fpf_no_tags_margin_start"/>
             </LinearLayout>
         </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

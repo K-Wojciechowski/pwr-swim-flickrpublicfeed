@@ -23,7 +23,6 @@ class AddActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             data.putExtra(INTENTEXTRA_IMAGE_URL, fpf_add_edit_image_url.text.toString())
             data.putExtra(INTENTEXTRA_NAME, fpf_add_edit_name.text.toString())
             data.putExtra(INTENTEXTRA_DATE, fpf_add_edit_date.text.toString())
-            data.putExtra(INTENTEXTRA_TAGS, fpf_add_edit_tags.text.toString())
             setResult(RESULT_OK, data)
             finish()
         }
