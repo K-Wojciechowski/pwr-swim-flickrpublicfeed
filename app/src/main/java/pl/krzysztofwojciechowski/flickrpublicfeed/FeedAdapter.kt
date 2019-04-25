@@ -39,8 +39,7 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        // newest at top
-        val item = feedEntries[adjustPosition(position)]
+        val item = feedEntries[position]
 
         if (item.imageURL.isEmpty()) {
             holder.imageView.setImageResource(R.drawable.ic_no_image)
@@ -87,17 +86,13 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     }
 
     fun addItem(entry: FeedEntry) {
-        feedEntries.add(entry)
+        feedEntries.add(0, entry)
         notifyItemInserted(0)
     }
 
     fun addItems(entries: List<FeedEntry>) {
-        feedEntries.addAll(entries)
+        feedEntries.addAll(0, entries)
         notifyItemRangeInserted(0, entries.size)
-    }
-
-    private fun adjustPosition(position: Int): Int {
-        return feedEntries.size - position - 1
     }
 
     fun updateItem(entry: FeedEntry) {
@@ -106,12 +101,12 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
             Log.wtf("FeedAdapter", "Update item received but item not found, updating all")
             notifyItemRangeChanged(0, feedEntries.size)
         } else {
-            notifyItemChanged(adjustPosition(position))
+            notifyItemChanged(position)
         }
     }
 
     fun removeItem(adjPosition: Int) {
-        feedEntries.removeAt(adjustPosition(adjPosition))
+        feedEntries.removeAt(adjPosition)
         notifyItemRemoved(adjPosition)
     }
 
