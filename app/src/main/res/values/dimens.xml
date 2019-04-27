@@ -9,6 +9,8 @@
     <dimen name="fpf_add_set_button_margin_start">8dp</dimen>
     <dimen name="fpf_card_corner_radius">4dp</dimen>
     <dimen name="fpf_card_margin">8dp</dimen>
-    <dimen name="fpf_card_name_textsize">24sp</dimen>
+    <dimen name="fpf_card_name_textsize">16sp</dimen>
     <dimen name="fpf_no_tags_margin_start">8dp</dimen>
+    <dimen name="fpf_card_image_size">100dp</dimen>
+    <dimen name="fpf_card_height">116dp</dimen>
 </resources>
