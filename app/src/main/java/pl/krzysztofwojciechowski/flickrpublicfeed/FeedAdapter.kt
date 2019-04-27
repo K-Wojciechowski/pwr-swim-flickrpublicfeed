@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListOf()) :
+class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> Unit, private val feedEntries: MutableList<FeedEntry> = mutableListOf()) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -40,6 +40,7 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val item = feedEntries[position]
+        holder.itemView.setOnClickListener({ _ -> showImageScreen(item, findImagesWithMatchingTags(item)) })
 
         if (item.imageURL.isEmpty()) {
             holder.imageView.setImageResource(R.drawable.ic_no_image)
@@ -104,6 +105,15 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
             notifyItemChanged(position)
         }
     }
+
+    fun findImagesWithMatchingTags(entry: FeedEntry): List<FeedEntry> =
+        feedEntries.mapNotNull { e ->
+            if (e == entry) null else {
+                val union = e.tags.union(entry.tags)
+                if (union.isEmpty()) null else Pair(e, union)
+            }
+        }.sortedBy { (_, union) -> union.size }.
+            map { (e, _) -> e }.take(SIMILAR_IMAGE_COUNT)
 
     fun removeItem(adjPosition: Int) {
         feedEntries.removeAt(adjPosition)

@@ -11,3 +11,4 @@ const val OUTPUT_DATE_FORMAT = "yyyy-MM-dd"
 //const val OUTPUT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
 const val MAX_TAG_COUNT = 3
 const val TAG_LEFT_MARGIN = 8
+const val SIMILAR_IMAGE_COUNT = 6

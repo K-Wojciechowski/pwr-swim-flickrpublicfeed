@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = FeedAdapter()
+        viewAdapter = FeedAdapter(this::showImageScreen)
 
         recyclerView = findViewById<RecyclerView>(R.id.fpf_recyclerview).apply {
             // use this setting to improve performance if you know that changes
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         viewAdapter.addItems(listOf(
             FeedEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Random /r/aww picture", "2019-03-28", this::runImageLabeling),
             FeedEntry("https://i.imgur.com/IWhT9DA.jpg", "Is this also a cat?", "2019-01-01", this::runImageLabeling),
-            FeedEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully wraps to the next line", "2019-03-01", this::runImageLabeling),
+            FeedEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully doesn’t break the layout", "2019-03-01", this::runImageLabeling),
             FeedEntry("https://i.imgur.com/qWhyIxy.png", "I don't know what I'm doing", "2019-03-01", this::runImageLabeling)
         ))
     }
@@ -90,5 +90,11 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Log.wtf("ImageRecognizer", it.message)
             }
+    }
+
+    fun showImageScreen(entry: FeedEntry, similar: List<FeedEntry>) {
+        Log.e("SIS", entry.toString())
+        Log.e("SIS", similar.toString())
+        // TODO
     }
 }
