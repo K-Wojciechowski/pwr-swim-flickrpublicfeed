@@ -94,11 +94,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showImageScreen(entry: FeedEntry, similar: List<FeedEntry>) {
-        Log.e("SIS", entry.toString())
-        Log.e("SIS", similar.toString())
         val intent = Intent(applicationContext, DetailsActivity::class.java)
-        intent.extras?.putParcelable(DETAILS_INTENTEXTRA_ENTRY, entry)
-        intent.extras?.putParcelableArrayList(DETAILS_INTENTEXTRA_SIMILAR, similar as ArrayList<out Parcelable>)
+        val bundle = Bundle()
+        bundle.putParcelable(DETAILS_INTENTEXTRA_ENTRY, entry)
+        bundle.putParcelableArrayList(DETAILS_INTENTEXTRA_SIMILAR, similar as ArrayList<out Parcelable>)
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 }

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="pl.krzysztofwojciechowski.flickrpublicfeed">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".AddActivity" android:label="@string/fpf_add">
+        <activity android:name=".DetailsActivity" android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".AddActivity"
+                android:label="@string/fpf_add">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,5 +26,4 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

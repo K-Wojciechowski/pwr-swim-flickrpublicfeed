@@ -29,9 +29,7 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
         parcel.readString()!!,
         dateFromString(parcel.readString()!!),
         parcel.createStringArrayList()!!
-    ) {
-        bitmap = parcel.readParcelable(Bitmap::class.java.classLoader)
-    }
+    )
 
     constructor(imageURL: String, name: String, date: String, tags: String) : this(
         imageURL,
@@ -49,7 +47,8 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
             tags = listOf()
             return
         }
-        val picassoImg = Picasso.get().load(imageURL).error(R.drawable.ic_no_image)
+        val picassoImg = getPicassoCreator(imageURL)
+
         Thread {
             bitmap = picassoImg.get()
             labelerCallback(this)
@@ -61,7 +60,6 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
         parcel.writeString(name)
         parcel.writeString(dateString)
         parcel.writeStringList(tags)
-        parcel.writeParcelable(bitmap, flags)
     }
 
     override fun describeContents(): Int {
