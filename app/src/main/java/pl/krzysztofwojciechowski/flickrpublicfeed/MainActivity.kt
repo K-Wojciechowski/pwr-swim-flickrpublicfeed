@@ -2,6 +2,7 @@ package pl.krzysztofwojciechowski.flickrpublicfeed
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -9,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.FirebaseApp
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -67,9 +68,9 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK && data != null) {
             val entry = FeedEntry(
-                data.getStringExtra(INTENTEXTRA_IMAGE_URL),
-                data.getStringExtra(INTENTEXTRA_NAME),
-                data.getStringExtra(INTENTEXTRA_DATE),
+                data.getStringExtra(ADD_INTENTEXTRA_IMAGE_URL),
+                data.getStringExtra(ADD_INTENTEXTRA_NAME),
+                data.getStringExtra(ADD_INTENTEXTRA_DATE),
                 this::runImageLabeling
             )
             viewAdapter.addItem(entry)
@@ -95,6 +96,9 @@ class MainActivity : AppCompatActivity() {
     fun showImageScreen(entry: FeedEntry, similar: List<FeedEntry>) {
         Log.e("SIS", entry.toString())
         Log.e("SIS", similar.toString())
-        // TODO
+        val intent = Intent(applicationContext, DetailsActivity::class.java)
+        intent.extras?.putParcelable(DETAILS_INTENTEXTRA_ENTRY, entry)
+        intent.extras?.putParcelableArrayList(DETAILS_INTENTEXTRA_SIMILAR, similar as ArrayList<out Parcelable>)
+        startActivity(intent)
     }
 }

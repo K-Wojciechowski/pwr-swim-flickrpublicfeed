@@ -1,5 +1,7 @@
 package pl.krzysztofwojciechowski.flickrpublicfeed
 import android.graphics.Bitmap
+import android.os.Parcel
+import android.os.Parcelable
 import com.squareup.picasso.Picasso
 
 import java.util.*
@@ -15,12 +17,21 @@ fun dateFromString(date: String): Calendar {
     // class Date is deprecated, Calendar is good enough and built-in
 }
 
-data class FeedEntry(val imageURL: String, val name: String, val date: Calendar, var tags: List<String>) {
+data class FeedEntry(val imageURL: String, val name: String, val date: Calendar, var tags: List<String>): Parcelable {
 
     var bitmap: Bitmap? = null
 
     val dateString: String
         get() = formatDate(date)
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readString()!!,
+        dateFromString(parcel.readString()!!),
+        parcel.createStringArrayList()!!
+    ) {
+        bitmap = parcel.readParcelable(Bitmap::class.java.classLoader)
+    }
 
     constructor(imageURL: String, name: String, date: String, tags: String) : this(
         imageURL,
@@ -43,5 +54,27 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
             bitmap = picassoImg.get()
             labelerCallback(this)
         }.start()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(imageURL)
+        parcel.writeString(name)
+        parcel.writeString(dateString)
+        parcel.writeStringList(tags)
+        parcel.writeParcelable(bitmap, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<FeedEntry> {
+        override fun createFromParcel(parcel: Parcel): FeedEntry {
+            return FeedEntry(parcel)
+        }
+
+        override fun newArray(size: Int): Array<FeedEntry?> {
+            return arrayOfNulls(size)
+        }
     }
 }

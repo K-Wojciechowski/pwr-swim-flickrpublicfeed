@@ -20,9 +20,9 @@ class AddActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         fpf_add_edit_date.setText(formatDate(today))
         fpf_add_button_save.setOnClickListener {
             val data = Intent()
-            data.putExtra(INTENTEXTRA_IMAGE_URL, fpf_add_edit_image_url.text.toString())
-            data.putExtra(INTENTEXTRA_NAME, fpf_add_edit_name.text.toString())
-            data.putExtra(INTENTEXTRA_DATE, fpf_add_edit_date.text.toString())
+            data.putExtra(ADD_INTENTEXTRA_IMAGE_URL, fpf_add_edit_image_url.text.toString())
+            data.putExtra(ADD_INTENTEXTRA_NAME, fpf_add_edit_name.text.toString())
+            data.putExtra(ADD_INTENTEXTRA_DATE, fpf_add_edit_date.text.toString())
             setResult(RESULT_OK, data)
             finish()
         }
