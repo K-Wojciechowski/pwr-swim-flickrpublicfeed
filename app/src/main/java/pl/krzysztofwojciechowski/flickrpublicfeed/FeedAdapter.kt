@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListOf()) :
-    RecyclerView.Adapter<FeedAdapter.HistoryViewHolder>() {
+    RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
-    class HistoryViewHolder(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
+    class FeedViewHolder(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.fpf_card_imageview)
         val nameView: TextView = itemView.findViewById(R.id.fpf_card_name)
         val dateView: TextView = itemView.findViewById(R.id.fpf_card_date)
@@ -30,15 +30,15 @@ class FeedAdapter(private val feedEntries: MutableList<FeedEntry> = mutableListO
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FeedAdapter.HistoryViewHolder {
-        return HistoryViewHolder(
+    ): FeedViewHolder {
+        return FeedViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.feed_list_item, parent, false),
             parent.context
         )
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val item = feedEntries[position]
 
         if (item.imageURL.isEmpty()) {
