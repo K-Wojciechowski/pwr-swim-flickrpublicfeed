@@ -14,6 +14,10 @@ class DetailsActivity : AppCompatActivity() {
     var entry: FeedEntry? = null
     var similar: List<FeedEntry>? = null
 
+    lateinit var fullImageFragment: FullImageFragment
+    lateinit var imageInfoFragment: ImageInfoFragment
+    lateinit var similarImagesFragment: androidx.fragment.app.Fragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
@@ -27,26 +31,27 @@ class DetailsActivity : AppCompatActivity() {
 
         supportActionBar!!.title = entry!!.name
         isShowingInfoScreen = false
-        fpf_details_bottom.visibility = View.GONE
 
-        val fm = supportFragmentManager
-        val ft = fm.beginTransaction()
-        ft.add(R.id.fpf_details_top, FullImageFragment.newInstance(entry!!.imageURL))
-        ft.add(R.id.fpf_details_bottom, PlaceholderFragment())
-        ft.commit()
+        fullImageFragment = FullImageFragment.newInstance(entry!!.imageURL)
+        imageInfoFragment = ImageInfoFragment.newInstance(entry!!)
+        similarImagesFragment = PlaceholderFragment()
+
+        changeMode(false)
     }
 
-    fun changeMode() {
+    fun changeMode(newMode: Boolean? = null) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        if (isShowingInfoScreen) {
+        if (newMode == false || (newMode == null && isShowingInfoScreen)) {
             isShowingInfoScreen = false
-            fpf_details_bottom.visibility = View.GONE
-            ft.replace(R.id.fpf_details_top, FullImageFragment.newInstance(entry!!.imageURL))
+            ft.replace(R.id.fpf_details_top, fullImageFragment)
+            ft.remove(similarImagesFragment)
+            ft.runOnCommit { fpf_details_bottom.visibility = View.GONE }
         } else {
             isShowingInfoScreen = true
-            fpf_details_bottom.visibility = View.VISIBLE
-            ft.replace(R.id.fpf_details_top, ImageInfoFragment.newInstance(entry!!))
+            ft.replace(R.id.fpf_details_top, imageInfoFragment)
+            ft.replace(R.id.fpf_details_bottom, similarImagesFragment)
+            ft.runOnCommit { fpf_details_bottom.visibility = View.VISIBLE }
         }
         ft.commit()
     }
