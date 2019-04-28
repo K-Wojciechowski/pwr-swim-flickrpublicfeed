@@ -14,12 +14,12 @@ import pl.krzysztofwojciechowski.flickrpublicfeed.R
 
 class DetailsActivity : AppCompatActivity() {
     var isShowingInfoScreen = false
-    var entry: FeedEntry? = null
-    var similar: List<FeedEntry>? = null
+    lateinit var entry: FeedEntry
+    lateinit var similar: ArrayList<FeedEntry>
 
     lateinit var fullImageFragment: FullImageFragment
     lateinit var imageInfoFragment: ImageInfoFragment
-    lateinit var similarImagesFragment: androidx.fragment.app.Fragment
+    lateinit var similarImagesFragment: SimilarImagesFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +32,14 @@ class DetailsActivity : AppCompatActivity() {
                 getParcelableArrayList<FeedEntry>(DETAILS_INTENTEXTRA_SIMILAR) as ArrayList<FeedEntry>
         }
 
-        supportActionBar!!.title = entry!!.name
+        supportActionBar!!.title = entry.name
         isShowingInfoScreen = false
 
         fullImageFragment =
-            FullImageFragment.newInstance(entry!!.imageURL)
+            FullImageFragment.newInstance(entry.imageURL)
         imageInfoFragment =
-            ImageInfoFragment.newInstance(entry!!)
-        similarImagesFragment = PlaceholderFragment()
+            ImageInfoFragment.newInstance(entry)
+        similarImagesFragment = SimilarImagesFragment.newInstance(similar)
 
         changeMode(false)
     }

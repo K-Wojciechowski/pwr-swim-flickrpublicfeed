@@ -13,10 +13,6 @@ import com.squareup.picasso.Picasso
 
 class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> Unit, private val feedEntries: MutableList<FeedEntry> = mutableListOf()) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder.
-    // Each data item is just a string in this case that is shown in a TextView.
     class FeedViewHolder(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.fpf_card_imageview)
         val nameView: TextView = itemView.findViewById(R.id.fpf_card_name)
@@ -24,7 +20,6 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
         val tagsLayout: LinearLayout = itemView.findViewById(R.id.fpf_card_tags_layout)
     }
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -35,7 +30,6 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
         )
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val item = feedEntries[position]
         holder.itemView.setOnClickListener({ _ -> showImageScreen(item, findImagesWithMatchingTags(item)) })
@@ -45,7 +39,7 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
         } else if (item.bitmap != null) {
             holder.imageView.setImageBitmap(item.bitmap)
         } else {
-            val picassoImg = Picasso.get().load(item.imageURL).error(R.drawable.ic_no_image)
+            val picassoImg = getPicassoCreator(item.imageURL)
             picassoImg.into(holder.imageView)
         }
 

@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         // Add sample entries, because why not?
         viewAdapter.addItems(listOf(
+            FeedEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Duplicate", "2019-03-28", this::runImageLabeling),
             FeedEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Random /r/aww picture", "2019-03-28", this::runImageLabeling),
             FeedEntry("https://i.imgur.com/IWhT9DA.jpg", "Is this also a cat?", "2019-01-01", this::runImageLabeling),
             FeedEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully doesn’t break the layout", "2019-03-01", this::runImageLabeling),

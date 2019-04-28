@@ -3,12 +3,9 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".detailsview.PlaceholderFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+             tools:context=".detailsview.SimilarImagesFragment"
+             android:layout_margin="@dimen/fpf_similar_margin">
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="PLACEHOLDER" android:textSize="36sp" android:fontFamily="sans-serif-condensed-medium"/>
-
+            android:layout_height="match_parent" android:id="@+id/fpf_similar_grid"/>
 </FrameLayout>

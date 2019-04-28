@@ -16,4 +16,5 @@
     <dimen name="fpf_card_name_height">20sp</dimen>
     <dimen name="fpf_info_margin">8dp</dimen>
     <dimen name="fpf_info_name_textsize">20sp</dimen>
+    <dimen name="fpf_similar_margin">8dp</dimen>
 </resources>
