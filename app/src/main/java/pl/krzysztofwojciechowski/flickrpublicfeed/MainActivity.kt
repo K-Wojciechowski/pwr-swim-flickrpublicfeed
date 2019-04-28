@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import pl.krzysztofwojciechowski.flickrpublicfeed.detailsview.DetailsActivity
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {

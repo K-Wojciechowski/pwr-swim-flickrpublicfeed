@@ -1,10 +1,11 @@
-package pl.krzysztofwojciechowski.flickrpublicfeed
+package pl.krzysztofwojciechowski.flickrpublicfeed.detailsview
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import pl.krzysztofwojciechowski.flickrpublicfeed.R
 
 
 class PlaceholderFragment : Fragment() {

@@ -1,13 +1,16 @@
-package pl.krzysztofwojciechowski.flickrpublicfeed
+package pl.krzysztofwojciechowski.flickrpublicfeed.detailsview
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.content_details.*
+import pl.krzysztofwojciechowski.flickrpublicfeed.DETAILS_INTENTEXTRA_ENTRY
+import pl.krzysztofwojciechowski.flickrpublicfeed.DETAILS_INTENTEXTRA_SIMILAR
+import pl.krzysztofwojciechowski.flickrpublicfeed.FeedEntry
+import pl.krzysztofwojciechowski.flickrpublicfeed.R
 
 class DetailsActivity : AppCompatActivity() {
     var isShowingInfoScreen = false
@@ -32,8 +35,10 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar!!.title = entry!!.name
         isShowingInfoScreen = false
 
-        fullImageFragment = FullImageFragment.newInstance(entry!!.imageURL)
-        imageInfoFragment = ImageInfoFragment.newInstance(entry!!)
+        fullImageFragment =
+            FullImageFragment.newInstance(entry!!.imageURL)
+        imageInfoFragment =
+            ImageInfoFragment.newInstance(entry!!)
         similarImagesFragment = PlaceholderFragment()
 
         changeMode(false)
