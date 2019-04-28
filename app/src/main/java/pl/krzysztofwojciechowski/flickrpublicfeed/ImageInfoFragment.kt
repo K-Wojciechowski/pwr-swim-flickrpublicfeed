@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_image_info.*
 
 
 private const val ARG_ENTRY = "entry"
@@ -27,6 +28,13 @@ class ImageInfoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_info, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fpf_info_name.text = entry!!.name
+        fpf_info_date.text = entry!!.dateString
+        insertTagsIntoLayout(fpf_info_tags_layout, context!!, entry!!.tags)
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package pl.krzysztofwojciechowski.flickrpublicfeed
 
 import android.content.Context
-import android.graphics.Typeface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -59,32 +57,9 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
         }
         holder.dateView.text = item.dateString
         val visibleTags = item.tags.take(MAX_TAG_COUNT)
-        holder.tagsLayout.removeAllViewsInLayout()
-        if (visibleTags.isEmpty()) {
-            val tv = buildTagTextView(holder.context)
-            tv.text = holder.context.getText(R.string.fpf_no_tags)
-            tv.setTypeface(null, Typeface.ITALIC)
-            holder.tagsLayout.addView(tv)
-        }
-        for (tag in visibleTags) {
-            val tv = buildTagTextView(holder.context)
-            tv.text = tag
-            tv.background = ContextCompat.getDrawable(holder.context, R.drawable.fpf_tag_background)
-            holder.tagsLayout.addView(tv)
-        }
+        insertTagsIntoLayout(holder.tagsLayout, holder.context, visibleTags)
     }
 
-    private fun buildTagTextView(context: Context): TextView {
-        val tv = TextView(context)
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            0.0f
-        )
-        params.leftMargin = TAG_LEFT_MARGIN
-        tv.layoutParams = params
-        return tv
-    }
 
     fun addItem(entry: FeedEntry) {
         feedEntries.add(0, entry)
