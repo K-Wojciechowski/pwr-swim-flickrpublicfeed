@@ -5,7 +5,7 @@
              android:layout_height="match_parent"
              tools:context=".detailsview.SimilarImagesFragment"
              android:layout_margin="@dimen/fpf_similar_margin">
-    <androidx.recyclerview.widget.RecyclerView
+    <GridView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/fpf_similar_grid"/>
+            android:layout_height="match_parent" android:id="@+id/fpf_similar_grid" android:numColumns="3"/>
 </FrameLayout>

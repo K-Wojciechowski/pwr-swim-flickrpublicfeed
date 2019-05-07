@@ -41,10 +41,10 @@ class DetailsActivity : AppCompatActivity() {
             ImageInfoFragment.newInstance(entry)
         similarImagesFragment = SimilarImagesFragment.newInstance(similar)
 
-        changeMode(false)
+        changeMode(newMode = false, animate = false)
     }
 
-    fun changeMode(newMode: Boolean? = null) {
+    private fun changeMode(newMode: Boolean? = null, animate: Boolean = true) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
         if (newMode == false || (newMode == null && isShowingInfoScreen)) {

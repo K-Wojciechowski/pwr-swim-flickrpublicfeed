@@ -33,15 +33,9 @@ class SimilarImagesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val viewManager = GridLayoutManager(context, 3)
-        val viewAdapter = SimilarImagesAdapter(similar)
+        val gridAdapter = SimilarImagesGridAdapter(context!!, similar)
 
-        fpf_similar_grid.apply {
-            setHasFixedSize(false)
-
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
+        fpf_similar_grid.adapter = gridAdapter
     }
 
     companion object {
