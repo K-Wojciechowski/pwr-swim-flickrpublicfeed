@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 
 class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> Unit, private val feedEntries: MutableList<FeedEntry> = mutableListOf()) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
@@ -39,8 +38,7 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
         } else if (item.bitmap != null) {
             holder.imageView.setImageBitmap(item.bitmap)
         } else {
-            val picassoImg = getPicassoCreator(item.imageURL)
-            picassoImg.into(holder.imageView)
+            getPicassoImageOrPlaceholder(getPicassoCreator(item.imageURL), holder.imageView)
         }
 
         if (item.name.isEmpty()) {

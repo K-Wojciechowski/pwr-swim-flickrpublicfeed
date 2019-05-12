@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         viewAdapter = FeedAdapter(this::showImageScreen)
 
         recyclerView = findViewById<RecyclerView>(R.id.fpf_recyclerview).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
             setHasFixedSize(false)
 
             layoutManager = viewManager
@@ -38,18 +36,20 @@ class MainActivity : AppCompatActivity() {
 
         val leftSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.LEFT, viewAdapter)
         ItemTouchHelper(leftSwipeHandler).attachToRecyclerView(recyclerView)
-//        val rightSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.RIGHT, viewAdapter)
-//        ItemTouchHelper(rightSwipeHandler).attachToRecyclerView(recyclerView)
 
         // Add sample entries, because why not?
         viewAdapter.addItems(listOf(
-            FeedEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Duplicate", "2019-03-28", this::runImageLabeling),
-            FeedEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Random /r/aww picture", "2019-03-28", this::runImageLabeling),
-            FeedEntry("https://i.imgur.com/IWhT9DA.jpg", "Is this also a cat?", "2019-01-01", this::runImageLabeling),
-            FeedEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully doesn’t break the layout", "2019-03-01", this::runImageLabeling),
-            FeedEntry("https://i.imgur.com/qWhyIxy.png", "I don't know what I'm doing", "2019-03-01", this::runImageLabeling)
+            makeEntry("https://i.redd.it/uj9kae4l7qx21.jpg", "A green bean for scale", "2019-05-12"),
+            makeEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Duplicate", "2019-03-28"),
+            makeEntry("https://i.redd.it/vmd69bdxvvo21.jpg", "Random /r/aww picture", "2019-03-28"),
+            makeEntry("https://i.redd.it/ls4p7ztfenx21.jpg", "Is this also a cat?", "2019-01-01"),
+            makeEntry("https://i.redd.it/fxqfz6w62v821.jpg", "A longer title that hopefully doesn’t break the layout", "2019-03-01"),
+            makeEntry("https://i.redd.it/mp6zqzspgrx21.jpg", "I don't know what I'm doing", "2019-03-01")
         ))
     }
+
+    private fun makeEntry(imageURL: String, name: String, date: String) =
+        FeedEntry(imageURL, name, date, this::runImageLabeling)
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -69,11 +69,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK && data != null) {
-            val entry = FeedEntry(
+            val entry = makeEntry(
                 data.getStringExtra(ADD_INTENTEXTRA_IMAGE_URL),
                 data.getStringExtra(ADD_INTENTEXTRA_NAME),
-                data.getStringExtra(ADD_INTENTEXTRA_DATE),
-                this::runImageLabeling
+                data.getStringExtra(ADD_INTENTEXTRA_DATE)
             )
             viewAdapter.addItem(entry)
             recyclerView.scrollToPosition(0)
@@ -83,6 +82,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun runImageLabeling(feedEntry: FeedEntry) {
+        if (feedEntry.bitmap == null) {
+            feedEntry.tags = listOf(getString(R.string.fpf_no_image))
+            viewAdapter.updateItem(feedEntry)
+            return
+        }
         val vision = FirebaseVisionImage.fromBitmap(feedEntry.bitmap!!)
         val labeler = FirebaseVision.getInstance().onDeviceImageLabeler
         labeler.processImage(vision) // Task na osobnym wątku

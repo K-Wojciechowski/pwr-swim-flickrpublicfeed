@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_full_image.*
 import pl.krzysztofwojciechowski.flickrpublicfeed.R
 import pl.krzysztofwojciechowski.flickrpublicfeed.getPicassoCreator
+import pl.krzysztofwojciechowski.flickrpublicfeed.getPicassoImageOrPlaceholder
 
 
 private const val ARG_IMAGE_URL = "imageUrl"
@@ -29,7 +30,7 @@ class FullImageFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        getPicassoCreator(imageURL!!).into(fpf_full_image_iv)
+        getPicassoImageOrPlaceholder(getPicassoCreator(imageURL!!), fpf_full_image_iv)
     }
 
     companion object {

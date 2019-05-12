@@ -1,8 +1,10 @@
 package pl.krzysztofwojciechowski.flickrpublicfeed
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
-import android.net.Uri
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -17,6 +19,22 @@ fun formatDate(date: Calendar): String {
 }
 
 fun getPicassoCreator(imageURL: String): RequestCreator = Picasso.get().load(imageURL).error(R.drawable.ic_no_image)
+
+fun getPicassoImageOrNull(creator: RequestCreator): Bitmap? {
+    return try {
+        creator.get()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+fun getPicassoImageOrPlaceholder(creator: RequestCreator, imageView: ImageView) {
+    try {
+        creator.into(imageView)
+    } catch (e: Exception) {
+        imageView.setImageResource(R.drawable.ic_no_image)
+    }
+}
 
 fun insertTagsIntoLayout(
     tagsLayout: LinearLayout,

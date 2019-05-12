@@ -2,7 +2,6 @@ package pl.krzysztofwojciechowski.flickrpublicfeed
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
-import com.squareup.picasso.Picasso
 
 import java.util.*
 
@@ -37,7 +36,12 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
         dateFromString(date),
         tags.split(",").map(String::trim).filter(String::isNotEmpty)
     )
-    constructor(imageURL: String, name: String, date: String, labelerCallback: (FeedEntry)->Unit) : this(
+    constructor(
+        imageURL: String,
+        name: String,
+        date: String,
+        labelerCallback: (FeedEntry) -> Unit
+    ) : this(
         imageURL,
         name,
         dateFromString(date),
@@ -50,7 +54,7 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
         val picassoImg = getPicassoCreator(imageURL)
 
         Thread {
-            bitmap = picassoImg.get()
+            bitmap = getPicassoImageOrNull(picassoImg)
             labelerCallback(this)
         }.start()
     }

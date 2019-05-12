@@ -11,4 +11,5 @@
     <string name="tags">Tags:</string>
     <string name="fpf_no_tags">(none)</string>
     <string name="fpf_menu_change_screen">Change Screen</string>
+    <string name="fpf_no_image">No Image</string>
 </resources>
