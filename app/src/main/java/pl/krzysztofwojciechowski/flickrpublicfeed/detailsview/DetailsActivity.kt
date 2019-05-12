@@ -13,7 +13,7 @@ import pl.krzysztofwojciechowski.flickrpublicfeed.FeedEntry
 import pl.krzysztofwojciechowski.flickrpublicfeed.R
 
 class DetailsActivity : AppCompatActivity() {
-    var isShowingInfoScreen = false
+    var currentMode = DetailsMode.FULLSCREEN
     lateinit var entry: FeedEntry
     lateinit var similar: ArrayList<FeedEntry>
 
@@ -28,32 +28,29 @@ class DetailsActivity : AppCompatActivity() {
 
         intent.extras?.apply {
             entry = getParcelable(DETAILS_INTENTEXTRA_ENTRY) as FeedEntry
-            similar =
-                getParcelableArrayList<FeedEntry>(DETAILS_INTENTEXTRA_SIMILAR) as ArrayList<FeedEntry>
+            similar = getParcelableArrayList<FeedEntry>(DETAILS_INTENTEXTRA_SIMILAR) as ArrayList<FeedEntry>
         }
 
         supportActionBar!!.title = entry.name
-        isShowingInfoScreen = false
+        currentMode = DetailsMode.FULLSCREEN
 
-        fullImageFragment =
-            FullImageFragment.newInstance(entry.imageURL)
-        imageInfoFragment =
-            ImageInfoFragment.newInstance(entry)
+        fullImageFragment = FullImageFragment.newInstance(entry.imageURL)
+        imageInfoFragment = ImageInfoFragment.newInstance(entry)
         similarImagesFragment = SimilarImagesFragment.newInstance(similar)
 
-        changeMode(newMode = false, animate = false)
+        changeMode(DetailsMode.FULLSCREEN)
     }
 
-    private fun changeMode(newMode: Boolean? = null, animate: Boolean = true) {
+    private fun changeMode(newMode: DetailsMode = DetailsMode.AUTO) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        if (newMode == false || (newMode == null && isShowingInfoScreen)) {
-            isShowingInfoScreen = false
+        if (newMode == DetailsMode.INFO || (newMode == DetailsMode.AUTO && currentMode == DetailsMode.INFO)) {
+            currentMode = DetailsMode.FULLSCREEN
             ft.replace(R.id.fpf_details_top, fullImageFragment)
             ft.remove(similarImagesFragment)
             ft.runOnCommit { fpf_details_bottom.visibility = View.GONE }
         } else {
-            isShowingInfoScreen = true
+            currentMode = DetailsMode.INFO
             ft.replace(R.id.fpf_details_top, imageInfoFragment)
             ft.replace(R.id.fpf_details_bottom, similarImagesFragment)
             ft.runOnCommit { fpf_details_bottom.visibility = View.VISIBLE }
@@ -73,4 +70,8 @@ class DetailsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+}
+
+enum class DetailsMode {
+    AUTO, FULLSCREEN, INFO
 }
