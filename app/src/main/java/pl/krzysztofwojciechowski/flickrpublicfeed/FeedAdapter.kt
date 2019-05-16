@@ -76,11 +76,10 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
     fun findImagesWithMatchingTags(entry: FeedEntry): List<FeedEntry> =
         feedEntries.mapNotNull { e ->
             if (e == entry) null else {
-                val union = e.tags.union(entry.tags)
-                if (union.isEmpty()) null else Pair(e, union)
+                val intersection = e.tags.intersect(entry.tags)
+                if (intersection.isEmpty()) null else Pair(e, intersection)
             }
-        }.sortedBy { (_, union) -> union.size }.
-            map { (e, _) -> e }.take(SIMILAR_IMAGE_COUNT)
+        }.sortedByDescending { (_, intersection) -> intersection.size }.map { (e, _) -> e }.take(SIMILAR_IMAGE_COUNT)
 
     fun removeItem(adjPosition: Int) {
         feedEntries.removeAt(adjPosition)
