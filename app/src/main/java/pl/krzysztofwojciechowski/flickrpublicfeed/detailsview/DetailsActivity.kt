@@ -44,7 +44,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun changeMode(newMode: DetailsMode = DetailsMode.AUTO) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        if (newMode == DetailsMode.INFO || (newMode == DetailsMode.AUTO && currentMode == DetailsMode.INFO)) {
+        if (newMode == DetailsMode.FULLSCREEN || (newMode == DetailsMode.AUTO && currentMode == DetailsMode.INFO)) {
             currentMode = DetailsMode.FULLSCREEN
             ft.replace(R.id.fpf_details_top, fullImageFragment)
             ft.remove(similarImagesFragment)
