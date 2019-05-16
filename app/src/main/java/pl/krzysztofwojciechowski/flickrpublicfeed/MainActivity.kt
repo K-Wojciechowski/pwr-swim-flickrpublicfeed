@@ -37,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         val leftSwipeHandler = SwipeToDeleteCallback(ItemTouchHelper.LEFT, viewAdapter)
         ItemTouchHelper(leftSwipeHandler).attachToRecyclerView(recyclerView)
 
+        addSampleEntries()
+    }
+
+    private fun addSampleEntries() {
         // Add sample entries, because why not?
         viewAdapter.addItems(listOf(
             makeEntry("https://i.redd.it/uj9kae4l7qx21.jpg", "A green bean for scale", "2019-05-12"),

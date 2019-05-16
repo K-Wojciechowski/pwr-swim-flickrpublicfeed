@@ -36,6 +36,7 @@ data class FeedEntry(val imageURL: String, val name: String, val date: Calendar,
         dateFromString(date),
         tags.split(",").map(String::trim).filter(String::isNotEmpty)
     )
+
     constructor(
         imageURL: String,
         name: String,
