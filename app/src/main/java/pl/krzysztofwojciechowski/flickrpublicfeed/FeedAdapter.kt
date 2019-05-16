@@ -31,14 +31,12 @@ class FeedAdapter(private val showImageScreen: (FeedEntry, List<FeedEntry>) -> U
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val item = feedEntries[position]
-        holder.itemView.setOnClickListener({ _ -> showImageScreen(item, findImagesWithMatchingTags(item)) })
+        holder.itemView.setOnClickListener { showImageScreen(item, findImagesWithMatchingTags(item)) }
 
-        if (item.imageURL.isEmpty()) {
-            holder.imageView.setImageResource(R.drawable.ic_no_image)
-        } else if (item.bitmap != null) {
-            holder.imageView.setImageBitmap(item.bitmap)
-        } else {
-            getPicassoImageOrPlaceholder(getPicassoCreator(item.imageURL), holder.imageView)
+        when {
+            item.imageURL.isEmpty() -> holder.imageView.setImageResource(R.drawable.ic_no_image)
+            item.bitmap != null -> holder.imageView.setImageBitmap(item.bitmap)
+            else -> getPicassoImageOrPlaceholder(getPicassoCreator(item.imageURL), holder.imageView)
         }
 
         if (item.name.isEmpty()) {

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_similar_images.*
 import pl.krzysztofwojciechowski.flickrpublicfeed.FeedEntry
 
@@ -14,7 +13,7 @@ import pl.krzysztofwojciechowski.flickrpublicfeed.R
 private const val ARG_SIMILAR = "similar"
 
 class SimilarImagesFragment : Fragment() {
-    lateinit var similar: ArrayList<FeedEntry>
+    private lateinit var similar: ArrayList<FeedEntry>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

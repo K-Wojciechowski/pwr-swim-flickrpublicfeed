@@ -2,7 +2,6 @@ package pl.krzysztofwojciechowski.flickrpublicfeed
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.widget.ImageView
 import android.widget.LinearLayout

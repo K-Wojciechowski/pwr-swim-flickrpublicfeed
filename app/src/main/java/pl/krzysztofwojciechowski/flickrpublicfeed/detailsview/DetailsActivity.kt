@@ -13,13 +13,13 @@ import pl.krzysztofwojciechowski.flickrpublicfeed.FeedEntry
 import pl.krzysztofwojciechowski.flickrpublicfeed.R
 
 class DetailsActivity : AppCompatActivity() {
-    var currentMode = DetailsMode.FULLSCREEN
-    lateinit var entry: FeedEntry
-    lateinit var similar: ArrayList<FeedEntry>
+    private var currentMode = DetailsMode.FULLSCREEN
+    private lateinit var entry: FeedEntry
+    private lateinit var similar: ArrayList<FeedEntry>
 
-    lateinit var fullImageFragment: FullImageFragment
-    lateinit var imageInfoFragment: ImageInfoFragment
-    lateinit var similarImagesFragment: SimilarImagesFragment
+    private lateinit var fullImageFragment: FullImageFragment
+    private lateinit var imageInfoFragment: ImageInfoFragment
+    private lateinit var similarImagesFragment: SimilarImagesFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

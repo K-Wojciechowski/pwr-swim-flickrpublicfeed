@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun runImageLabeling(feedEntry: FeedEntry) {
+    private fun runImageLabeling(feedEntry: FeedEntry) {
         if (feedEntry.bitmap == null) {
             feedEntry.tags = listOf(getString(R.string.fpf_no_image))
             viewAdapter.updateItem(feedEntry)
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         val labeler = FirebaseVision.getInstance().onDeviceImageLabeler
         labeler.processImage(vision) // Task na osobnym wątku
             .addOnSuccessListener {
-                feedEntry.tags = it.map { it.text }.toList()
+                feedEntry.tags = it.map { tag -> tag.text }.toList()
                 viewAdapter.updateItem(feedEntry)
             }
             .addOnFailureListener {
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun showImageScreen(entry: FeedEntry, similar: List<FeedEntry>) {
+    private fun showImageScreen(entry: FeedEntry, similar: List<FeedEntry>) {
         val intent = Intent(applicationContext, DetailsActivity::class.java)
         val bundle = Bundle()
         bundle.putParcelable(DETAILS_INTENTEXTRA_ENTRY, entry)

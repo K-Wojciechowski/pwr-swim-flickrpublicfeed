@@ -14,7 +14,7 @@ import pl.krzysztofwojciechowski.flickrpublicfeed.getPicassoImageOrPlaceholder
 private const val ARG_IMAGE_URL = "imageUrl"
 
 class FullImageFragment : Fragment() {
-    var imageURL: String? = null
+    private var imageURL: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         imageURL = arguments?.getString(ARG_IMAGE_URL)
